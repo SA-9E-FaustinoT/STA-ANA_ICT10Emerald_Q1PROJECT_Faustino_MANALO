@@ -1,19 +1,4 @@
-Ahh yes 😭 I found the issue in the file I gave you. I fixed it.
-
-There were **two important problems**:
-
-* The SKU result box was still set to `display: none`, so the SKU could be generated but stayed invisible.
-* I simplified the Python subtotal calculation so the PyScript parser has a safer format.
-
-PyScript does support both `py-click="..."` handlers and an external `<script type="py" src="...">` file, so those parts are valid. ([PyScript Documentation][1])
-
-Use these **together in the same folder**:
-
-[📄 Fixed index.html](sandbox:/mnt/data/index_fixed.html)
-[🐍 Fixed main.py](sandbox:/mnt/data/main_fixed.py)
-
-Also, I fixed the Boys section # 1st Quarter Project 
-""" 
+ # 1st Quarter Project """
 A SKU (pronounced SKEW) stands for stock keeping unit and is a unique code that retailers create to track their products internally. It’s usually up to eight characters long and made from alphanumeric digits (a mix of letters and numbers). Every size, color, or style of an item gets its own SKU, making it easier to understand what is selling and what needs reordering. 
 """ 
 from pyscript import document 
