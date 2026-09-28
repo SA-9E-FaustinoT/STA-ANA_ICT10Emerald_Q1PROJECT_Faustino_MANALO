@@ -268,16 +268,16 @@
     <div id="storeSection" class="main-container">
         <div class="left-side">
             <h2 class="girls-title">🌸 Girls Section</h2>
-            <div class="toy-item" id="item1">
+            <div class="toy-item" input type="checkbox" id="item1" value="159.99">
                 <span class="toy-icon">💐</span> Flower Set <span class="price">₱159.99</span>
             </div>
-            <div class="toy-item" id="item2">
+            <div class="toy-item" type="checkbox" id="item2" value="249.99">
                 <span class="toy-icon">👸</span> Princess Doll <span class="price">₱249.99</span>
             </div>
-            <div class="toy-item" id="item3">
+            <div class="toy-item" type="checkbox" id="item3" value="199.99">
                 <span class="toy-icon">🧸</span> Teddy Bear <span class="price">₱199.99</span>
             </div>
-            <div class="toy-item" id="item4">
+            <div class="toy-item" type="checkbox" id="item4" value="249.99">
                 <span class="toy-icon">🏠</span> Doll House <span class="price">₱249.99</span>
             </div>
         </div>
@@ -299,7 +299,7 @@
                 <label>Stock Quantity:</label>
                 <input type="number" id="quantity" placeholder="e.g. 50">
             </div>
-            <button id="generateBtn">Generate SKU</button>
+            <button id="SKU_generate">Generate SKU</button>
 
             <div id="skuDisplay" class="sku-result">
                 <strong>Generated SKU:</strong>
@@ -307,26 +307,24 @@
                 <div id="skuInfo"></div>
             </div>
 
-            <h3 style="margin-top: 30px;">🛒 Current Order:</h3>
-            <div id="cart" class="cart">
-                <p style="text-align: center; color: #999;">No items yet. Click toys to add!</p>
-            </div>
-            <div id="totalDiv" class="total" style="display: none;">Total: ₱0.00</div>
-            <button id="receiptBtn" style="margin-top: 15px; background-color: #ff9800;">Generate Receipt →</button>
-        </div>
+    <h3 style="margin-top: 30px;">🛒 Current Order:</h3>
+        <button py-click="create_order" style="margin-top: 15px; background-color: #ff9800;">
+            Generate Receipt →
+        </button>
 
+        <div id="show"></div>
         <div class="right-side">
             <h2 class="boys-title">🚗 Boys Section</h2>
-            <div class="toy-item" id="item5">
+            <div class="toy-item" type="checkbox" id="item5" value="159.99">
                 <span class="toy-icon">🚗️</span> Race Car <span class="price">₱159.99</span>
             </div>
-            <div class="toy-item" id="item6">
+            <div class="toy-item" type="checkbox" id="item6" value="199.99">
                 <span class="toy-icon">🤖</span> Robot Transformer <span class="price">₱199.99</span>
             </div>
-            <div class="toy-item" id="item7">
-                <span class="toy-icon">🧱</span> Building Blocks <span class="price">₱299.99</span>
+            <div class="toy-item" type="checkbox" id="item7" value="259.99">
+                <span class="toy-icon">🧱</span> Building Blocks <span class="price">₱259.99</span>
             </div>
-            <div class="toy-item" id="item8">
+            <div class="toy-item" ype="checkbox" id="item1" value="299.99">
                 <span class="toy-icon">🚙</span> Remote Control Car <span class="price">₱299.99</span>
             </div>
         </div>
