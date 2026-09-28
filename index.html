@@ -66,25 +66,32 @@
             color: #4169e1; 
         }
         
-        .toy-item { 
-            padding: 10px; 
-            margin: 8px 0; 
-            background-color: #f9f9f9; 
-            border: 1px solid #ddd; 
-            border-radius: 5px; 
-            cursor: pointer; 
+        .toy-item {
+            padding: 10px;
+            margin: 8px 0;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 22px;
         }
         .toy-item:hover { 
             background-color: #fffacd; 
         }
-        .toy-icon { 
-            font-size: 20px; 
-            margin-right: 10px; 
+        .toy-icon {
+            font-size: 20px;
+            margin-right: 4px;
+            flex-shrink: 0;
         }
-        .price { 
-            color: #e74c3c; 
-            font-weight: bold; 
-            float: right; 
+        .price {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-left: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .form-group { 
@@ -104,7 +111,8 @@
         }
         .toy-item input[type="checkbox"] {
             width: auto;
-            margin-right: 8px;
+            margin: 0 4px 0 0;
+            flex-shrink: 0;
         }
         
         button { 
@@ -122,7 +130,7 @@
         }
         
         .sku-result { 
-            display: none; 
+            display: block; 
             margin-top: 20px; 
             padding: 15px; 
             background-color: #e7f3ff; 
@@ -441,6 +449,6 @@
             <button id="printBtn" class="btn btn-print">Print Receipt</button>
         </div>
     </div>
-    <script type="py" src="./main.py"></script>
+    <script type="py" src="./main_fixed.py"></script>
 </body>
 </html>
