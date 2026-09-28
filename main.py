@@ -2,8 +2,7 @@
 """ 
 A SKU (pronounced SKEW) stands for stock keeping unit and is a unique code that retailers create to track their products internally. It’s usually up to eight characters long and made from alphanumeric digits (a mix of letters and numbers). Every size, color, or style of an item gets its own SKU, making it easier to understand what is selling and what needs reordering. 
 """ 
-from pyscript import document
-from js import window
+from pyscript import document, window, when
 from datetime import datetime
 
 
@@ -20,36 +19,45 @@ PRODUCTS = {
 }
 
 
-def show_home(e=None):
-    document.getElementById("storeSection").style["display"] = "flex"
-    document.getElementById("aboutSection").style["display"] = "none"
-    document.getElementById("contactSection").style["display"] = "none"
-    document.getElementById("receiptSection").style["display"] = "none"
+@when("click", "#homeBtn")
+def show_home(e):
+    e.preventDefault()
+    document.getElementById("storeSection").style.display = "flex"
+    document.getElementById("aboutSection").style.display = "none"
+    document.getElementById("contactSection").style.display = "none"
+    document.getElementById("receiptSection").style.display = "none"
 
 
-def show_about(e=None):
-    document.getElementById("storeSection").style["display"] = "none"
-    document.getElementById("aboutSection").style["display"] = "block"
-    document.getElementById("contactSection").style["display"] = "none"
-    document.getElementById("receiptSection").style["display"] = "none"
+@when("click", "#aboutBtn")
+def show_about(e):
+    e.preventDefault()
+    document.getElementById("storeSection").style.display = "none"
+    document.getElementById("aboutSection").style.display = "block"
+    document.getElementById("contactSection").style.display = "none"
+    document.getElementById("receiptSection").style.display = "none"
 
 
-def show_contact(e=None):
-    document.getElementById("storeSection").style["display"] = "none"
-    document.getElementById("aboutSection").style["display"] = "none"
-    document.getElementById("contactSection").style["display"] = "block"
-    document.getElementById("receiptSection").style["display"] = "none"
+@when("click", "#contactBtn")
+def show_contact(e):
+    e.preventDefault()
+    document.getElementById("storeSection").style.display = "none"
+    document.getElementById("aboutSection").style.display = "none"
+    document.getElementById("contactSection").style.display = "block"
+    document.getElementById("receiptSection").style.display = "none"
 
 
+@when("click", "#SKU_generate")
 def SKU_generator(e):
+    document.getElementById("sku_output").innerHTML = ""
+    document.getElementById("skuInfo").innerHTML = ""
+
     category = document.getElementById("category").value
     product_name = document.getElementById("product_name").value.strip()
     stock_qty = document.getElementById("quantity").value
 
     if product_name == "" or stock_qty == "":
         document.getElementById("sku_output").innerHTML = "Please enter a product name and stock quantity."
-        document.getElementById("skuInfo").innerHTML = ""
-        document.getElementById("skuDisplay").style["display"] = "block"
+        document.getElementById("skuDisplay").style.display = "block"
         return
 
     sku = category[:3].upper() + "-" + product_name[:4].upper() + "-" + str(stock_qty)
@@ -58,9 +66,10 @@ def SKU_generator(e):
     document.getElementById("skuInfo").innerHTML = (
         "Category: " + category + " | Product: " + product_name + " | Stock: " + str(stock_qty)
     )
-    document.getElementById("skuDisplay").style["display"] = "block"
+    document.getElementById("skuDisplay").style.display = "block"
 
 
+@when("click", "#receiptBtn")
 def create_order(e):
     # Get input values
     prod1 = document.getElementById("item1")
@@ -79,25 +88,25 @@ def create_order(e):
     for product in products:
         if product.checked:
             price = float(product.value)
-            subtotal += price
+            subtotal = subtotal + price
             selected_items.append((PRODUCTS[product.id], price))
 
     if len(selected_items) == 0:
         document.getElementById("show").innerHTML = "<p>Please select at least one toy before generating a receipt.</p>"
         return
 
-    # Calculate tax and total
+    # Calculate subtotal, tax, and total
     tax_rate = 0.12  # 12% VAT, no need for excise tax. too complicated
     tax = subtotal * tax_rate
     total = subtotal + tax
 
-    # Show the simple receipt in the order section too.
     receipt = f"""
     <h3>==== Receipt ====</h3>
     <p>Subtotal: ₱{subtotal:.2f}</p>
     <p>Tax: ₱{tax:.2f}</p>
     <p><strong>Total: ₱{total:.2f}</strong></p>
     """
+
     document.getElementById("show").innerHTML = receipt
 
     # Build the official receipt.
@@ -113,20 +122,26 @@ def create_order(e):
     document.getElementById("itemsList").innerHTML = rows
     document.getElementById("totalAmt").innerHTML = "₱" + f"{total:.2f}"
 
-    document.getElementById("storeSection").style["display"] = "none"
-    document.getElementById("aboutSection").style["display"] = "none"
-    document.getElementById("contactSection").style["display"] = "none"
-    document.getElementById("receiptSection").style["display"] = "block"
+    document.getElementById("storeSection").style.display = "none"
+    document.getElementById("aboutSection").style.display = "none"
+    document.getElementById("contactSection").style.display = "none"
+    document.getElementById("receiptSection").style.display = "block"
 
 
+@when("click", "#backBtn")
 def back_to_store(e):
-    show_home()
+    document.getElementById("storeSection").style.display = "flex"
+    document.getElementById("aboutSection").style.display = "none"
+    document.getElementById("contactSection").style.display = "none"
+    document.getElementById("receiptSection").style.display = "none"
 
 
+@when("click", "#printBtn")
 def print_receipt(e):
     window.print()
 
 
+@when("click", "#sendBtn")
 def send_message(e):
     name = document.getElementById("contactName").value.strip()
     email = document.getElementById("contactEmail").value.strip()
