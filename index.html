@@ -259,6 +259,19 @@
             color: #666;
         }
         
+
+        @media (max-width: 900px) {
+            body {
+                background: #ffffff;
+            }
+            .main-container {
+                flex-direction: column;
+            }
+            .left-side, .middle-section, .right-side {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
         @media print { 
             .no-print { 
                 display: none; 
@@ -270,9 +283,9 @@
     <header>
         <h1> TOY STORE</h1>
         <nav>
-            <a id="homeBtn">Home & SKU</a>
-            <a id="aboutBtn">About Us</a>
-            <a id="contactBtn">Contact</a>
+            <a id="homeBtn" py-click="show_home">Home & SKU</a>
+            <a id="aboutBtn" py-click="show_about">About Us</a>
+            <a id="contactBtn" py-click="show_contact">Contact</a>
         </nav>
     </header>
 
@@ -396,17 +409,18 @@
 
         <div class="form-group">
             <label>Your Name:</label>
-            <input type="text" placeholder="Juan Dela Cruz">
+            <input type="text" id="contactName" placeholder="Juan Dela Cruz">
         </div>
         <div class="form-group">
             <label>Email Address:</label>
-            <input type="email" placeholder="juan@email.com">
+            <input type="email" id="contactEmail" placeholder="juan@email.com">
         </div>
         <div class="form-group">
             <label>Message:</label>
-            <textarea style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: Arial;" rows="5" placeholder="How can we help you?"></textarea>
+            <textarea id="contactMessage" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: Arial;" rows="5" placeholder="How can we help you?"></textarea>
         </div>
-        <button id="sendBtn">Send Message</button>
+        <button id="sendBtn" py-click="send_message">Send Message</button>
+        <div id="messageStatus" style="margin-top: 15px; text-align: center; font-weight: bold;"></div>
     </div>
 
     <!-- Receipt Section -->
@@ -445,10 +459,10 @@
         </div>
 
         <div class="no-print" style="text-align: center; margin-top: 20px;">
-            <button id="backBtn" class="btn">← Back to Store</button>
-            <button id="printBtn" class="btn btn-print">Print Receipt</button>
+            <button id="backBtn" py-click="back_to_store" class="btn">← Back to Store</button>
+            <button id="printBtn" py-click="print_receipt" class="btn btn-print">Print Receipt</button>
         </div>
     </div>
-    <script type="py" src="./main_fixed.py"></script>
+    <script type="py" src="./main.py"></script>
 </body>
 </html>
