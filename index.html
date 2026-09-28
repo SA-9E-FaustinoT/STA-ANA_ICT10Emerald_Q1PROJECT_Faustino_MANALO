@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="https://pyscript.net/releases/2025.3.1/core.css">
     <script type="module" src="https://pyscript.net/releases/2025.3.1/core.js"></script>
     <style>
-        /* main page design */
         body { 
             margin: 0; 
             padding: 0; 
@@ -33,7 +32,6 @@
             background-color: #888; 
         }
         
-        /* 3 sections in the store */
         .main-container { 
             display: flex; 
             justify-content: space-between; 
@@ -68,7 +66,6 @@
             color: #4169e1; 
         }
         
-        /* toy item boxes */
         .toy-item {
             padding: 10px;
             margin: 8px 0;
@@ -97,7 +94,6 @@
             flex-shrink: 0;
         }
         
-        /* form spacing */
         .form-group { 
             margin-bottom: 15px; 
         }
@@ -119,7 +115,6 @@
             flex-shrink: 0;
         }
         
-        /* buttons */
         button { 
             width: 100%; 
             padding: 10px; 
@@ -134,7 +129,6 @@
             background-color: #45a049; 
         }
         
-        /* sku result box */
         .sku-result { 
             display: block; 
             margin-top: 20px; 
@@ -151,7 +145,6 @@
             margin: 10px 0; 
         }
         
-        /* current order design */
         .cart { 
             margin-top: 20px; 
             padding: 15px; 
@@ -179,7 +172,7 @@
             border-radius: 4px; 
         }
         
-        /* receipt section */
+        /* Receipt section */
         .receipt-section { 
             display: none; 
             max-width: 600px; 
@@ -237,7 +230,7 @@
             background-color: #2196F3; 
         }
         
-        /* about and contact sections */
+        /* About and Contact sections */
         .page-section {
             display: none;
             max-width: 800px;
@@ -267,7 +260,6 @@
         }
         
 
-        /* makes the page fit smaller screens */
         @media (max-width: 900px) {
             body {
                 background: #ffffff;
@@ -280,7 +272,6 @@
                 box-sizing: border-box;
             }
         }
-        /* only shows the receipt when printing */
         @media print { 
             .no-print { 
                 display: none; 
@@ -289,39 +280,37 @@
     </style>
 </head>
 <body>
-    <!-- header and navigation -->
     <header>
         <h1> TOY STORE</h1>
         <nav>
-            <a id="homeBtn" href="#">Home & SKU</a>
-            <a id="aboutBtn" href="#">About Us</a>
-            <a id="contactBtn" href="#">Contact</a>
+            <a id="homeBtn" href="#" py-click="show_home">Home & SKU</a>
+            <a id="aboutBtn" href="#" py-click="show_about">About Us</a>
+            <a id="contactBtn" href="#" py-click="show_contact">Contact</a>
         </nav>
     </header>
 
-    <!-- main store section -->
+    <!-- Main Store Section -->
     <div id="storeSection" class="main-container">
-        <!-- girls side -->
         <div class="left-side">
            <h2 class="girls-title">🌸 Girls Section</h2>
 
             <div class="toy-item">
-                <input type="checkbox" id="item1" value="159.99">
+                <input type="checkbox" id="item1" py-change="update_order" value="159.99">
                 <span class="toy-icon">💐</span> Flower Set <span class="price">₱159.99</span>
             </div>
 
             <div class="toy-item">
-                <input type="checkbox" id="item2" value="249.99">
+                <input type="checkbox" id="item2" py-change="update_order" value="249.99">
                 <span class="toy-icon">👸</span> Princess Doll <span class="price">₱249.99</span>
             </div>
 
             <div class="toy-item">
-                <input type="checkbox" id="item3" value="199.99">
+                <input type="checkbox" id="item3" py-change="update_order" value="199.99">
                 <span class="toy-icon">🧸</span> Teddy Bear <span class="price">₱199.99</span>
             </div>
 
             <div class="toy-item">
-                <input type="checkbox" id="item4" value="249.99">
+                <input type="checkbox" id="item4" py-change="update_order" value="249.99">
                 <span class="toy-icon">🏠</span> Doll House <span class="price">₱249.99</span>
             </div>
         </div>
@@ -347,59 +336,59 @@
                 <input type="number" id="quantity" placeholder="e.g. 50">
             </div>
 
-            <!-- generate the sku -->
-            <button id="SKU_generate">Generate SKU</button>
+            <button id="SKU_generate" py-click="SKU_generator">Generate SKU</button>
 
-            <!-- generated sku -->
             <div id="skuDisplay" class="sku-result">
                 <strong>Generated SKU:</strong>
                 <div id="sku_output" class="sku-code"></div>
                 <div id="skuInfo"></div>
             </div>
 
-            <!-- current order -->
             <h3 style="margin-top: 30px;">🛒 Current Order:</h3>
-            <!-- generate receipt -->
-            <button id="receiptBtn" style="margin-top: 15px; background-color: #ff9800;">
+            <div id="orderPreview" class="cart">
+                <p style="text-align: center; color: #999;">No items yet. Click the boxes to add!</p>
+            </div>
+            <div id="totalDiv" class="total" style="display: none;">Total: ₱0.00</div>
+            <button id="receiptBtn" py-click="create_order" style="margin-top: 15px; background-color: #ff9800;">
                 Generate Receipt →
             </button>
 
             <div id="show"></div>
         </div>
 
-        <!-- right side boys section -->
         <div class="right-side">
+            <!-- right side boys section -->
             <h2 class="boys-title">🚗 Boys Section</h2>
 
             <div class="toy-item">
-                <input type="checkbox" id="item5" value="159.99">
+                <input type="checkbox" id="item5" py-change="update_order" value="159.99">
                 <span class="toy-icon">🚗️</span> Race Car <span class="price">₱159.99</span>
             </div>
 
             <div class="toy-item">
-                <input type="checkbox" id="item6" value="199.99">
+                <input type="checkbox" id="item6" py-change="update_order" value="199.99">
                 <span class="toy-icon">🤖</span> Robot Transformer <span class="price">₱199.99</span>
             </div>
 
             <div class="toy-item">
-                <input type="checkbox" id="item7" value="259.99">
+                <input type="checkbox" id="item7" py-change="update_order" value="259.99">
                 <span class="toy-icon">🧱</span> Building Blocks <span class="price">₱259.99</span>
             </div>
 
             <div class="toy-item">
-                <input type="checkbox" id="item8" value="299.99">
+                <input type="checkbox" id="item8" py-change="update_order" value="299.99">
                 <span class="toy-icon">🚙</span> Remote Control Car <span class="price">₱299.99</span>
             </div>
         </div>
     </div>
 
-    <!-- about us section -->
+    <!-- About Us Section -->
     <div id="aboutSection" class="page-section">
         <h1>About Our Toy Store</h1>
         <p>Welcome to the best toy store in town! We have been selling toys for kids of all ages since 2020. Our goal is to make sure every child finds something they love.</p>
         
         <div class="highlight">
-            <!-- why us section -->
+            <!-- wht us section -->
             <h3>Why Choose Us?</h3>
             <ul>
                 <li>High quality and safe toys</li>
@@ -415,7 +404,7 @@
         <p>Thank you for visiting our website!</p>
     </div>
 
-    <!-- contact section -->
+    <!-- Contact Section -->
     <div id="contactSection" class="page-section">
         <h1>Contact Us</h1>
         <div class="contact-info">
@@ -437,12 +426,11 @@
             <label>Message:</label>
             <textarea id="contactMessage" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: Arial;" rows="5" placeholder="How can we help you?"></textarea>
         </div>
-        <!-- send message -->
-        <button id="sendBtn">Send Message</button>
+        <button id="sendBtn" py-click="send_message">Send Message</button>
         <div id="messageStatus" style="margin-top: 15px; text-align: center; font-weight: bold;"></div>
     </div>
 
-    <!-- receipt section -->
+    <!-- Receipt Section -->
     <div id="receiptSection" class="receipt-section">
         <div class="receipt-header">
             <h2>🧸 TOY STORE 🤖</h2>
@@ -450,13 +438,11 @@
             <p>123 Main Street, Toy City, Philippines</p>
         </div>
 
-        <!-- receipt details -->
         <div style="margin-bottom: 20px;">
             <p><strong>Receipt #:</strong> <span id="receiptNum"></span></p>
             <p><strong>Date:</strong> <span id="receiptDate"></span></p>
         </div>
 
-        <!-- list of ordered toys -->
         <table>
             <thead>
                 <tr>
@@ -479,10 +465,9 @@
             <p>Please come again! 💖</p>
         </div>
 
-        <!-- receipt buttons -->
         <div class="no-print" style="text-align: center; margin-top: 20px;">
-            <button id="backBtn" class="btn">← Back to Store</button>
-            <button id="printBtn" class="btn btn-print">Print Receipt</button>
+            <button id="backBtn" py-click="back_to_store" class="btn">← Back to Store</button>
+            <button id="printBtn" py-click="print_receipt" class="btn btn-print">Print Receipt</button>
         </div>
     </div>
     <script type="py" src="./main.py"></script>
