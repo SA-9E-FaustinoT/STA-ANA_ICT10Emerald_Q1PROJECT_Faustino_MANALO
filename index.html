@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://pyscript.net/releases/2025.3.1/core.css">
     <script type="module" src="https://pyscript.net/releases/2025.3.1/core.js"></script>
     <style>
+        /* main page design */
         body { 
             margin: 0; 
             padding: 0; 
@@ -32,6 +33,7 @@
             background-color: #888; 
         }
         
+        /* 3 sections in the store */
         .main-container { 
             display: flex; 
             justify-content: space-between; 
@@ -66,6 +68,7 @@
             color: #4169e1; 
         }
         
+        /* toy item boxes */
         .toy-item {
             padding: 10px;
             margin: 8px 0;
@@ -94,6 +97,7 @@
             flex-shrink: 0;
         }
         
+        /* form spacing */
         .form-group { 
             margin-bottom: 15px; 
         }
@@ -115,6 +119,7 @@
             flex-shrink: 0;
         }
         
+        /* buttons */
         button { 
             width: 100%; 
             padding: 10px; 
@@ -129,6 +134,7 @@
             background-color: #45a049; 
         }
         
+        /* sku result box */
         .sku-result { 
             display: block; 
             margin-top: 20px; 
@@ -145,6 +151,7 @@
             margin: 10px 0; 
         }
         
+        /* current order design */
         .cart { 
             margin-top: 20px; 
             padding: 15px; 
@@ -172,7 +179,7 @@
             border-radius: 4px; 
         }
         
-        /* Receipt section */
+        /* receipt section */
         .receipt-section { 
             display: none; 
             max-width: 600px; 
@@ -230,7 +237,7 @@
             background-color: #2196F3; 
         }
         
-        /* About and Contact sections */
+        /* about and contact sections */
         .page-section {
             display: none;
             max-width: 800px;
@@ -260,6 +267,7 @@
         }
         
 
+        /* makes the page fit smaller screens */
         @media (max-width: 900px) {
             body {
                 background: #ffffff;
@@ -272,6 +280,7 @@
                 box-sizing: border-box;
             }
         }
+        /* only shows the receipt when printing */
         @media print { 
             .no-print { 
                 display: none; 
@@ -280,6 +289,7 @@
     </style>
 </head>
 <body>
+    <!-- header and navigation -->
     <header>
         <h1> TOY STORE</h1>
         <nav>
@@ -289,11 +299,11 @@
         </nav>
     </header>
 
-    <!-- Main Store Section -->
+    <!-- main store section -->
     <div id="storeSection" class="main-container">
+        <!-- girls side -->
         <div class="left-side">
-            #left side girls section
-            <h2 class="girls-title">🌸 Girls Section</h2>
+           <h2 class="girls-title">🌸 Girls Section</h2>
 
             <div class="toy-item">
                 <input type="checkbox" id="item1" value="159.99">
@@ -318,7 +328,7 @@
 
         <div class="middle-section">
             <h2>📋 Order Menu & SKU Generator</h2>
-            #sku category 
+            <!-- sku category -->
             <div class="form-group">
                 <label>Category:</label>
                 <select id="category">
@@ -326,26 +336,30 @@
                     <option value="BOYS">Boys Section</option>
                 </select>
             </div>
-            #sku label
+            <!-- sku label -->
             <div class="form-group">
                 <label>Product Name:</label>
                 <input type="text" id="product_name" placeholder="e.g. Flower Set">
             </div>
-            #sku stock quantity
+            <!-- sku stock quantity -->
             <div class="form-group">
                 <label>Stock Quantity:</label>
                 <input type="number" id="quantity" placeholder="e.g. 50">
             </div>
 
+            <!-- generate the sku -->
             <button id="SKU_generate">Generate SKU</button>
 
+            <!-- generated sku -->
             <div id="skuDisplay" class="sku-result">
                 <strong>Generated SKU:</strong>
                 <div id="sku_output" class="sku-code"></div>
                 <div id="skuInfo"></div>
             </div>
 
+            <!-- current order -->
             <h3 style="margin-top: 30px;">🛒 Current Order:</h3>
+            <!-- generate receipt -->
             <button id="receiptBtn" style="margin-top: 15px; background-color: #ff9800;">
                 Generate Receipt →
             </button>
@@ -353,8 +367,8 @@
             <div id="show"></div>
         </div>
 
+        <!-- right side boys section -->
         <div class="right-side">
-            #right side boys section
             <h2 class="boys-title">🚗 Boys Section</h2>
 
             <div class="toy-item">
@@ -379,13 +393,13 @@
         </div>
     </div>
 
-    <!-- About Us Section -->
+    <!-- about us section -->
     <div id="aboutSection" class="page-section">
         <h1>About Our Toy Store</h1>
         <p>Welcome to the best toy store in town! We have been selling toys for kids of all ages since 2020. Our goal is to make sure every child finds something they love.</p>
         
         <div class="highlight">
-            #wht us section
+            <!-- why us section -->
             <h3>Why Choose Us?</h3>
             <ul>
                 <li>High quality and safe toys</li>
@@ -401,7 +415,7 @@
         <p>Thank you for visiting our website!</p>
     </div>
 
-    <!-- Contact Section -->
+    <!-- contact section -->
     <div id="contactSection" class="page-section">
         <h1>Contact Us</h1>
         <div class="contact-info">
@@ -410,7 +424,7 @@
             <p>️ info@toystore.ph</p>
         </div>
 
-        #information
+        <!-- information -->
         <div class="form-group">
             <label>Your Name:</label>
             <input type="text" id="contactName" placeholder="Juan Dela Cruz">
@@ -423,11 +437,12 @@
             <label>Message:</label>
             <textarea id="contactMessage" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: Arial;" rows="5" placeholder="How can we help you?"></textarea>
         </div>
+        <!-- send message -->
         <button id="sendBtn">Send Message</button>
         <div id="messageStatus" style="margin-top: 15px; text-align: center; font-weight: bold;"></div>
     </div>
 
-    <!-- Receipt Section -->
+    <!-- receipt section -->
     <div id="receiptSection" class="receipt-section">
         <div class="receipt-header">
             <h2>🧸 TOY STORE 🤖</h2>
@@ -435,11 +450,13 @@
             <p>123 Main Street, Toy City, Philippines</p>
         </div>
 
+        <!-- receipt details -->
         <div style="margin-bottom: 20px;">
             <p><strong>Receipt #:</strong> <span id="receiptNum"></span></p>
             <p><strong>Date:</strong> <span id="receiptDate"></span></p>
         </div>
 
+        <!-- list of ordered toys -->
         <table>
             <thead>
                 <tr>
@@ -462,6 +479,7 @@
             <p>Please come again! 💖</p>
         </div>
 
+        <!-- receipt buttons -->
         <div class="no-print" style="text-align: center; margin-top: 20px;">
             <button id="backBtn" class="btn">← Back to Store</button>
             <button id="printBtn" class="btn btn-print">Print Receipt</button>
