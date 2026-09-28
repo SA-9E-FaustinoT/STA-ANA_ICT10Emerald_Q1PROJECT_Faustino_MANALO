@@ -283,9 +283,9 @@
     <header>
         <h1> TOY STORE</h1>
         <nav>
-            <a id="homeBtn" py-click="show_home">Home & SKU</a>
-            <a id="aboutBtn" py-click="show_about">About Us</a>
-            <a id="contactBtn" py-click="show_contact">Contact</a>
+            <a id="homeBtn" href="#">Home & SKU</a>
+            <a id="aboutBtn" href="#">About Us</a>
+            <a id="contactBtn" href="#">Contact</a>
         </nav>
     </header>
 
@@ -336,7 +336,7 @@
                 <input type="number" id="quantity" placeholder="e.g. 50">
             </div>
 
-            <button id="SKU_generate" py-click="SKU_generator">Generate SKU</button>
+            <button id="SKU_generate">Generate SKU</button>
 
             <div id="skuDisplay" class="sku-result">
                 <strong>Generated SKU:</strong>
@@ -345,7 +345,7 @@
             </div>
 
             <h3 style="margin-top: 30px;">🛒 Current Order:</h3>
-            <button py-click="create_order" style="margin-top: 15px; background-color: #ff9800;">
+            <button id="receiptBtn" style="margin-top: 15px; background-color: #ff9800;">
                 Generate Receipt →
             </button>
 
@@ -419,7 +419,7 @@
             <label>Message:</label>
             <textarea id="contactMessage" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: Arial;" rows="5" placeholder="How can we help you?"></textarea>
         </div>
-        <button id="sendBtn" py-click="send_message">Send Message</button>
+        <button id="sendBtn">Send Message</button>
         <div id="messageStatus" style="margin-top: 15px; text-align: center; font-weight: bold;"></div>
     </div>
 
@@ -459,8 +459,8 @@
         </div>
 
         <div class="no-print" style="text-align: center; margin-top: 20px;">
-            <button id="backBtn" py-click="back_to_store" class="btn">← Back to Store</button>
-            <button id="printBtn" py-click="print_receipt" class="btn btn-print">Print Receipt</button>
+            <button id="backBtn" class="btn">← Back to Store</button>
+            <button id="printBtn" class="btn btn-print">Print Receipt</button>
         </div>
     </div>
     <script type="py" src="./main.py"></script>
