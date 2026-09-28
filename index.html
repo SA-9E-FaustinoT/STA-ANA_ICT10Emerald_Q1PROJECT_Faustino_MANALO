@@ -102,6 +102,10 @@
             border-radius: 4px; 
             box-sizing: border-box; 
         }
+        .toy-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
         
         button { 
             width: 100%; 
@@ -268,30 +272,31 @@
     <div id="storeSection" class="main-container">
         <div class="left-side">
             <h2 class="girls-title">🌸 Girls Section</h2>
+
             <div class="toy-item">
                 <input type="checkbox" id="item1" value="159.99">
-                <span class="toy-icon">💐</span> Flower Set
-                <span class="price">₱159.99</span>
+                <span class="toy-icon">💐</span> Flower Set <span class="price">₱159.99</span>
             </div>
-            <div class="toy-item"> 
+
+            <div class="toy-item">
                 <input type="checkbox" id="item2" value="249.99">
-                <span class="toy-icon">👸</span> Princess Doll 
-                <span class="price">₱249.99</span>
+                <span class="toy-icon">👸</span> Princess Doll <span class="price">₱249.99</span>
             </div>
-                <div class="toy-item"> 
+
+            <div class="toy-item">
                 <input type="checkbox" id="item3" value="199.99">
-                <span class="toy-icon">🧸</span> Teddy Bear 
-                <span class="price">₱199.99</span>
+                <span class="toy-icon">🧸</span> Teddy Bear <span class="price">₱199.99</span>
             </div>
+
             <div class="toy-item">
                 <input type="checkbox" id="item4" value="249.99">
-                <span class="toy-icon">🏠</span> Doll House
-                <span class="price">₱249.99</span>
+                <span class="toy-icon">🏠</span> Doll House <span class="price">₱249.99</span>
             </div>
         </div>
 
         <div class="middle-section">
             <h2>📋 Order Menu & SKU Generator</h2>
+
             <div class="form-group">
                 <label>Category:</label>
                 <select id="category">
@@ -299,15 +304,18 @@
                     <option value="BOYS">Boys Section</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label>Product Name:</label>
                 <input type="text" id="product_name" placeholder="e.g. Flower Set">
             </div>
+
             <div class="form-group">
                 <label>Stock Quantity:</label>
                 <input type="number" id="quantity" placeholder="e.g. 50">
             </div>
-            <button id="SKU_generate">Generate SKU</button>
+
+            <button id="SKU_generate" py-click="SKU_generator">Generate SKU</button>
 
             <div id="skuDisplay" class="sku-result">
                 <strong>Generated SKU:</strong>
@@ -315,33 +323,35 @@
                 <div id="skuInfo"></div>
             </div>
 
-    <h3 style="margin-top: 30px;">🛒 Current Order:</h3>
-        <button py-click="create_order" style="margin-top: 15px; background-color: #ff9800;">
-            Generate Receipt →
-        </button>
+            <h3 style="margin-top: 30px;">🛒 Current Order:</h3>
+            <button py-click="create_order" style="margin-top: 15px; background-color: #ff9800;">
+                Generate Receipt →
+            </button>
 
-        <div id="show"></div>
+            <div id="show"></div>
+        </div>
+
         <div class="right-side">
             <h2 class="boys-title">🚗 Boys Section</h2>
+
             <div class="toy-item">
                 <input type="checkbox" id="item5" value="159.99">
-                <span class="toy-icon">🚗️</span> Race Car 
-                <span class="price">₱159.99</span>
+                <span class="toy-icon">🚗️</span> Race Car <span class="price">₱159.99</span>
             </div>
+
             <div class="toy-item">
                 <input type="checkbox" id="item6" value="199.99">
-                <span class="toy-icon">🤖</span> Robot Transformer 
-                <span class="price">₱199.99</span>
+                <span class="toy-icon">🤖</span> Robot Transformer <span class="price">₱199.99</span>
             </div>
-           <div class="toy-item">
-                <input type="checkbox" id="item7" value="259.99">
-                <span class="toy-icon">🧱</span> Building Blocks
-                <span class="price">₱259.99</span>
-            </div>
+
             <div class="toy-item">
-                <input type="checkbox" id="item8" value="259.99">
-                  <span class="toy-icon">🚙</span> Remote Control Car 
-                <span class="price">₱299.99</span>
+                <input type="checkbox" id="item7" value="259.99">
+                <span class="toy-icon">🧱</span> Building Blocks <span class="price">₱259.99</span>
+            </div>
+
+            <div class="toy-item">
+                <input type="checkbox" id="item8" value="299.99">
+                <span class="toy-icon">🚙</span> Remote Control Car <span class="price">₱299.99</span>
             </div>
         </div>
     </div>
