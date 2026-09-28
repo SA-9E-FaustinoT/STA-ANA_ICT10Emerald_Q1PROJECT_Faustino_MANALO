@@ -1,221 +1,59 @@
+main.py (project file)
+
 # 1st Quarter Project
 """
-A SKU (pronounced SKEW) stands for stock keeping unit and is a unique
-code that retailers create to track their products internally.
+A SKU (pronounced SKEW) stands for stock keeping unit and is a unique code that retailers create to track their products internally. It’s usually up to eight characters long and made from alphanumeric digits (a mix of letters and numbers). Every size, color, or style of an item gets its own SKU, making it easier to understand what is selling and what needs reordering.
 """
-
-from pyscript import document
-from datetime import datetime
+from pyscript import display, document
 
 
-# Store/cart data
-cart = []
-total_amount = 0.0
+def SKU_generator(e):
+    document.getElementById('sku_output').innerHTML = " "
+    category = document.getElementById('category').value
+    product_name = document.getElementById('product_name').value
+    stock_qty = document.getElementById('quantity').value
+
+    sku = category[:3].upper() + "-" + product_name[:4].upper() + "-" + str(stock_qty)
+
+    display("SKU: ", sku, target='sku_output')
 
 
-# -----------------------------
-# SKU GENERATOR
-# -----------------------------
-def SKU_generator(event=None):
-    document.getElementById("sku_output").innerHTML = ""
-    document.getElementById("skuInfo").innerHTML = ""
-
-    category = document.getElementById("category").value
-    product_name = document.getElementById("product_name").value
-    stock_qty = document.getElementById("quantity").value
-
-    if product_name == "" or stock_qty == "":
-        document.getElementById("sku_output").innerHTML = "Please fill in all fields!"
-        return
-
-    sku = (
-        category[:3].upper()
-        + "-"
-        + product_name.replace(" ", "")[:4].upper()
-        + "-"
-        + str(stock_qty)
-    )
-
-    document.getElementById("sku_output").innerHTML = sku
-    document.getElementById("skuInfo").innerHTML = (
-        "Category: " + category
-        + "<br>Product: " + product_name
-        + "<br>Stock: " + str(stock_qty)
-    )
+def create_order(e):
+    # Get input values
+    prod1 = document.getElementById("item1")
+    prod2 = document.getElementById("item2")
+    prod3 = document.getElementById("item3")
+    prod4 = document.getElementById("item4")
+    prod5 = document.getElementById("item5")
+    prod6 = document.getElementById("item6")
+    prod7 = document.getElementById("item7")
+    prod8 = document.getElementById("item8")
 
 
-# -----------------------------
-# CART
-# -----------------------------
-def add_item(name, code, stock, price):
-    global total_amount
+    # Calculate total by multiplying value by checked status (1 or 0)
+    # Calculate subtotal, tax, and total
+    subtotal = (float(prod1.value) * prod1.checked + 
+             float(prod2.value) * prod2.checked + 
+             float(prod3.value) * prod3.checked + 
+             float(prod4.value) * prod4.checked + 
+             float(prod5.value) * prod5.checked +
+             float(prod6.value) * prod6.checked + 
+             float(prod7.value) * prod7.checked + 
+             float(prod8.value) * prod8.checked)
+    
+    tax_rate = 0.12  # 12% VAT, no need for excise tax. too complicated
+    tax = subtotal * tax_rate
+    total = subtotal + tax
 
-    item = {
-        "name": name,
-        "code": code,
-        "stock": stock,
-        "price": price
-    }
+    # display(f"==== Receipt ==== <br> Subtotal: ₱ {subtotal:.2f} ", target="show")
+    # display(f"Subtotal: ₱ {subtotal:.2f} ", target="show")
+    # display(f"VAT: ₱ {tax:.2f} ", target="show")
+    # display(f"Total: ₱ {total:.2f} ", target="show")
+    receipt = f"""
+    <h3>==== Receipt ====</h3>
+    <p>Subtotal: ₱{subtotal:.2f}</p>
+    <p>Tax: ₱{tax:.2f}</p>
+    <p><strong>Total: ₱{total:.2f}</strong></p>
+    """
 
-    cart.append(item)
-    total_amount += price
-    update_cart()
-
-
-def update_cart():
-    cart_div = document.getElementById("cart")
-    total_div = document.getElementById("totalDiv")
-
-    if len(cart) == 0:
-        cart_div.innerHTML = (
-            '<p style="text-align: center; color: #999;">'
-            'No items yet. Click toys to add!</p>'
-        )
-        total_div.style.display = "none"
-        return
-
-    html = ""
-
-    for item in cart:
-        html += '<div class="cart-item">'
-        html += "<span>" + item["name"] + "</span>"
-        html += '<span>₱' + format(item["price"], ".2f") + "</span>"
-        html += "</div>"
-
-    cart_div.innerHTML = html
-    total_div.innerHTML = "Total: ₱" + format(total_amount, ".2f")
-    total_div.style.display = "block"
-
-
-# -----------------------------
-# NAVIGATION
-# -----------------------------
-def show_section(section_name):
-    document.getElementById("storeSection").style.display = "none"
-    document.getElementById("aboutSection").style.display = "none"
-    document.getElementById("contactSection").style.display = "none"
-    document.getElementById("receiptSection").style.display = "none"
-
-    if section_name == "store":
-        document.getElementById("storeSection").style.display = "flex"
-    elif section_name == "about":
-        document.getElementById("aboutSection").style.display = "block"
-    elif section_name == "contact":
-        document.getElementById("contactSection").style.display = "block"
-
-
-# -----------------------------
-# RECEIPT
-# -----------------------------
-def show_receipt(event=None):
-    if len(cart) == 0:
-        document.getElementById("receiptSection").innerHTML = (
-            '<p style="text-align:center;">'
-            'Please add items to your cart first!</p>'
-        )
-        return
-
-    document.getElementById("storeSection").style.display = "none"
-    document.getElementById("aboutSection").style.display = "none"
-    document.getElementById("contactSection").style.display = "none"
-    document.getElementById("receiptSection").style.display = "block"
-
-    receipt_num = "RCT-" + str(int(datetime.now().timestamp()))[-8:]
-    document.getElementById("receiptNum").textContent = receipt_num
-
-    now = datetime.now()
-    document.getElementById("receiptDate").textContent = now.strftime(
-        "%B %d, %Y %I:%M %p"
-    )
-
-    tbody = document.getElementById("itemsList")
-    tbody.innerHTML = ""
-
-    for item in cart:
-        sku = item["code"] + "-" + str(item["stock"])
-
-        row = "<tr>"
-        row += "<td>" + item["name"] + "</td>"
-        row += "<td>" + sku + "</td>"
-        row += "<td>₱" + format(item["price"], ".2f") + "</td>"
-        row += "</tr>"
-
-        tbody.innerHTML += row
-
-    document.getElementById("totalAmt").textContent = (
-        "₱" + format(total_amount, ".2f")
-    )
-
-
-def back_to_store(event=None):
-    document.getElementById("receiptSection").style.display = "none"
-    document.getElementById("storeSection").style.display = "flex"
-
-
-# -----------------------------
-# CONTACT
-# -----------------------------
-def send_message(event=None):
-    document.getElementById("contactSection").innerHTML += (
-        '<p style="text-align:center; color:#4CAF50; font-weight:bold;">'
-        'Thank you! We will get back to you soon.</p>'
-    )
-
-
-# -----------------------------
-# CONNECT HTML BUTTONS TO PYTHON
-# -----------------------------
-document.getElementById("homeBtn").addEventListener(
-    "click", lambda event: show_section("store")
-)
-
-document.getElementById("aboutBtn").addEventListener(
-    "click", lambda event: show_section("about")
-)
-
-document.getElementById("contactBtn").addEventListener(
-    "click", lambda event: show_section("contact")
-)
-
-document.getElementById("generateBtn").addEventListener(
-    "click", SKU_generator
-)
-
-document.getElementById("receiptBtn").addEventListener(
-    "click", show_receipt
-)
-
-document.getElementById("backBtn").addEventListener(
-    "click", back_to_store
-)
-
-document.getElementById("sendBtn").addEventListener(
-    "click", send_message
-)
-
-
-# Product buttons
-document.getElementById("item1").addEventListener(
-    "click", lambda event: add_item("Flower Set", "GIRLS-FLW", 25, 159.99)
-)
-document.getElementById("item2").addEventListener(
-    "click", lambda event: add_item("Princess Doll", "GIRLS-DOL", 30, 249.99)
-)
-document.getElementById("item3").addEventListener(
-    "click", lambda event: add_item("Teddy Bear", "GIRLS-BEA", 40, 199.99)
-)
-document.getElementById("item4").addEventListener(
-    "click", lambda event: add_item("Doll House", "GIRLS-HOU", 15, 249.99)
-)
-document.getElementById("item5").addEventListener(
-    "click", lambda event: add_item("Race Car", "BOYS-CAR", 35, 159.99)
-)
-document.getElementById("item6").addEventListener(
-    "click", lambda event: add_item("Robot", "BOYS-ROB", 20, 199.99)
-)
-document.getElementById("item7").addEventListener(
-    "click", lambda event: add_item("Building Blocks", "BOYS-BLK", 50, 299.99)
-)
-document.getElementById("item8").addEventListener(
-    "click", lambda event: add_item("RC Car", "BOYS-RCC", 25, 299.99)
-)
+    document.getElementById("show").innerHTML = receipt  # use this instead of display to avoid displaying the HTML tags
