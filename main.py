@@ -1,8 +1,22 @@
-# 1st Quarter Project 
+Ahh yes 😭 I found the issue in the file I gave you. I fixed it.
+
+There were **two important problems**:
+
+* The SKU result box was still set to `display: none`, so the SKU could be generated but stayed invisible.
+* I simplified the Python subtotal calculation so the PyScript parser has a safer format.
+
+PyScript does support both `py-click="..."` handlers and an external `<script type="py" src="...">` file, so those parts are valid. ([PyScript Documentation][1])
+
+Use these **together in the same folder**:
+
+[📄 Fixed index.html](sandbox:/mnt/data/index_fixed.html)
+[🐍 Fixed main.py](sandbox:/mnt/data/main_fixed.py)
+
+Also, I fixed the Boys section # 1st Quarter Project 
 """ 
 A SKU (pronounced SKEW) stands for stock keeping unit and is a unique code that retailers create to track their products internally. It’s usually up to eight characters long and made from alphanumeric digits (a mix of letters and numbers). Every size, color, or style of an item gets its own SKU, making it easier to understand what is selling and what needs reordering. 
 """ 
-from pyscript import display, document 
+from pyscript import document 
  
  
 def SKU_generator(e): 
@@ -13,7 +27,8 @@ def SKU_generator(e):
  
     sku = category[:3].upper() + "-" + product_name[:4].upper() + "-" + str(stock_qty) 
  
-    display("SKU: ", sku, target='sku_output') 
+    document.getElementById("sku_output").innerHTML = "SKU: " + sku
+    document.getElementById("skuDisplay").style.display = "block" 
  
  
 def create_order(e): 
@@ -30,14 +45,16 @@ def create_order(e):
  
     # Calculate total by multiplying value by checked status (1 or 0) 
     # Calculate subtotal, tax, and total 
-    subtotal = (float(prod1.value) * prod1.checked +  
-             float(prod2.value) * prod2.checked +  
-             float(prod3.value) * prod3.checked +  
-             float(prod4.value) * prod4.checked +  
-             float(prod5.value) * prod5.checked + 
-             float(prod6.value) * prod6.checked +  
-             float(prod7.value) * prod7.checked +  
-             float(prod8.value) * prod8.checked) 
+    subtotal = (
+        (float(prod1.value) if prod1.checked else 0) +
+        (float(prod2.value) if prod2.checked else 0) +
+        (float(prod3.value) if prod3.checked else 0) +
+        (float(prod4.value) if prod4.checked else 0) +
+        (float(prod5.value) if prod5.checked else 0) +
+        (float(prod6.value) if prod6.checked else 0) +
+        (float(prod7.value) if prod7.checked else 0) +
+        (float(prod8.value) if prod8.checked else 0)
+    )
      
     tax_rate = 0.12  # 12% VAT, no need for excise tax. too complicated 
     tax = subtotal * tax_rate 
@@ -51,3 +68,8 @@ def create_order(e):
     """ 
  
     document.getElementById("show").innerHTML = receipt  # use this instead of display to avoid displaying the HTML tags
+ so the names and prices don't overlap anymore.
+
+**Important:** the fixed HTML now points to `main_fixed.py`, so don't rename just one of the files.
+
+[1]: https://docs.pyscript.net/2025.2.3/api/?utm_source=chatgpt.com "Built-in APIs - PyScript"
